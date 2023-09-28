@@ -26,7 +26,7 @@ def upload_file():
     if file:
         # Save the file to the upload folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-        return redirect(url_for('hello'))
+        return redirect(url_for('index'))
 
 @app.route('/play')
 def play_video():
