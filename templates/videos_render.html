@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Video Playback</title>
+    <title>Uploaded Videos</title>
 </head>
 <body>
-    <h1>Video Playback</h1>
-    <video controls>
-        <source src="{{ url_for('uploaded_video', filename='filename') }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <h1>All Uploaded Videos</h1>
+    <ul>
+        {% for filename in video_filenames %}
+            <li>
+                <a href="{{ url_for('uploaded_video', filename=filename) }}">{{ filename }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
