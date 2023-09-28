@@ -33,7 +33,7 @@ def upload_file():
 @app.route('/videos')
 def show_uploaded_videos():
     if uploaded_videos:
-        return render_template('videos.html', video_filenames=uploaded_videos)
+        return render_template('videos_render.html', video_filenames=uploaded_videos)
     else:
         return "No videos uploaded yet."
 
