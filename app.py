@@ -28,5 +28,7 @@ def upload_file():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         return redirect(url_for('hello'))
 
+# Create the upload directory if it doesn't exist
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-app.run(host='0.0.0.0', port=81)
+app.run(debug=True)
