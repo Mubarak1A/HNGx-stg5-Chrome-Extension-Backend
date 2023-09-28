@@ -39,7 +39,7 @@ def show_uploaded_videos():
 
 @app.route('/uploads/<filename>')
 def uploaded_video(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, mimetype='video/mp4')
 
 if __name__ == '__main__':
     # Create the upload directory if it doesn't exist
