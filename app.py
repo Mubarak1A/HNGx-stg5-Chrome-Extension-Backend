@@ -6,6 +6,8 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+uploaded_videos = []
+
 @app.route('/')
 def index():
     return '''
@@ -24,16 +26,16 @@ def index():
 def upload_file():
     file = request.files['video']
     if file:
-        # Save the file to the upload folder
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+        uploaded_videos.append(file.filename)
         return redirect(url_for('index'))
 
-@app.route('/play')
-def play_video():
-    # Render an HTML page for video playback
-    return render_template('play.html')
-
-# ... (existing code)
+@app.route('/videos')
+def show_uploaded_videos():
+    if uploaded_videos:
+        return render_template('videos.html', video_filenames=uploaded_videos)
+    else:
+        return "No videos uploaded yet."
 
 @app.route('/uploads/<filename>')
 def uploaded_video(filename):
