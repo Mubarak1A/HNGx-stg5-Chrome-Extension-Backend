@@ -28,6 +28,11 @@ def upload_file():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         return redirect(url_for('hello'))
 
+@app.route('/play')
+def play_video():
+    # Render an HTML page for video playback
+    return render_template('play.html')
+
 # Create the upload directory if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
