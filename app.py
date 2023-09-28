@@ -33,7 +33,13 @@ def play_video():
     # Render an HTML page for video playback
     return render_template('play.html')
 
-# Create the upload directory if it doesn't exist
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# ... (existing code)
 
-app.run(debug=True)
+@app.route('/uploads/<filename>')
+def uploaded_video(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+if __name__ == '__main__':
+    # Create the upload directory if it doesn't exist
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    app.run(debug=True)
