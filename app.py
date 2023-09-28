@@ -20,5 +20,13 @@ def index():
     </html>
     '''
 
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['video']
+    if file:
+        # Save the file to the upload folder
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+        return redirect(url_for('hello'))
+
 
 app.run(host='0.0.0.0', port=81)
