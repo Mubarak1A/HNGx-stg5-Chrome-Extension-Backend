@@ -8,7 +8,7 @@
     <ul>
         {% for filename in video_filenames %}
             <li>
-                <a href="{{ url_for('uploaded_video', filename=filename) }}">{{ filename }}</a>
+                 <a href="/uploads/{{ filename | urlencode }}">{{ filename }}</a>
             </li>
         {% endfor %}
     </ul>
