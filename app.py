@@ -39,6 +39,7 @@ def show_uploaded_videos():
 
 @app.route('/uploads/<filename>')
 def uploaded_video(filename):
+    filename = quote(filename)
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, mimetype='video/mp4')
 
 if __name__ == '__main__':
