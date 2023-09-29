@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory
+from urllib.parse import quote
 
 app = Flask(__name__)
 
