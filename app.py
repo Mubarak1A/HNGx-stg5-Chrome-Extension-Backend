@@ -38,9 +38,11 @@ def show_uploaded_videos():
     else:
         return "No videos uploaded yet."
 
-@app.route('/uploads/<path:filename>')
-def uploaded_video(filename):
+@app.route('/uploads', methods=['GET'])
+def uploaded_video():
+    filename = request.args.get('filename', '')
     filename = filename.replace(' ', '%20')
+    
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, mimetype='video/mp4')
 
 if __name__ == '__main__':
