@@ -40,8 +40,7 @@ def show_uploaded_videos():
 
 @app.route('/uploads', methods=['GET'])
 def uploaded_video():
-    filename = request.args.get('filename', '')
-    filename = filename.replace(' ', '%20')
+    filename = str(request.args.get('filename'))
     
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, mimetype='video/mp4')
 
