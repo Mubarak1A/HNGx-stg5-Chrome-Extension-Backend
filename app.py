@@ -19,10 +19,7 @@ videos = {}
 
 # Generate a new video ID and store an empty video record in the database
 def generate_video_id():
-    video = Video(data=b'')
-    db.session.add(video)
-    db.session.commit()
-    return video.id
+     return str(len(videos) + 1)
 
 # Function to update video data
 def update_video_data(video_id, data):
