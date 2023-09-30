@@ -9,11 +9,13 @@ db = SQLAlchemy(app)
 # Video model to store video data
 class Video(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.LargeBinary)
+    file_path = db.Column(db.String(255))
 
 # Create the database and the Video table
 with app.app_context():
     db.create_all()
+
+videos = {}
 
 # Generate a new video ID and store an empty video record in the database
 def generate_video_id():
@@ -22,10 +24,17 @@ def generate_video_id():
     db.session.commit()
     return video.id
 
+# Function to update video data
+def update_video_data(video_id, data):
+    file_path = f'videos/{video_id}.mp4'
+    with open(file_path, 'ab') as video_file:
+        video_file.write(data)
+
 # Endpoint to start a new video and get a video ID
 @app.route('/start_video', methods=['POST'])
 def start_video():
     video_id = generate_video_id()
+    videos[video_id] = {'file_path': f'/videos/{video_id}.mp4'}
     return jsonify({'video_id': video_id})
 
 # Endpoint to continuously update video data (simulate streaming)
@@ -35,19 +44,18 @@ def update_video(video_id):
 
     if video:
         data = request.get_data()
-        video.data += data
-        db.session.commit()
-        return jsonify({'message': 'Update received.'})
+        update_video_data(video_id, data)
+        return jsonify({'message': 'Video data updated.'})
     else:
         return jsonify({'error': 'Video not found.'}), 404
 
 # Endpoint to get video data
 @app.route('/get_video/<int:video_id>', methods=['GET'])
 def get_video(video_id):
-    video = Video.query.get(video_id)
-
+    # Return the video file path
+    video = videos.get(video_id)
     if video:
-        return jsonify({'video_data': video.data.decode('utf-8')})
+        return jsonify({'file_path': video['file_path']})
     else:
         return jsonify({'error': 'Video not found.'}), 404
 
