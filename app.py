@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import os
 #from flask_cors import CORS
 
 app = Flask(__name__)
@@ -33,6 +34,7 @@ def update_video_data(video_id, data):
 @app.route('/start_video', methods=['POST'])
 def start_video():
     video_id = generate_video_id()
+    os.makedirs('videos', exist_ok=True)
     videos[video_id] = {'file_path': f'/videos/{video_id}.mp4'}
     return jsonify({'video_id': video_id})
 
