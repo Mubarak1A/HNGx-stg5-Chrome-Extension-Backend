@@ -2,12 +2,20 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_cors import CORS
+import creds
 
 app = Flask(__name__)
 CORS(app) 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///videos.db'  # SQLite database file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+# Configure your OpenAI API key
+openai.api_key = creds.api_key
+
+# Configure RabbitMQ connection parameters
+RABBITMQ_HOST = 'localhost'
+RABBITMQ_PORT = 5672
 
 # Video model to store video data
 class Video(db.Model):
