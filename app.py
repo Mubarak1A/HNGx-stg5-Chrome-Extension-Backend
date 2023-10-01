@@ -11,11 +11,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Configure your OpenAI API key
-openai.api_key = creds.api_key
+#openai.api_key = creds.api_key
 
 # Configure RabbitMQ connection parameters
-RABBITMQ_HOST = 'localhost'
-RABBITMQ_PORT = 5672
+#RABBITMQ_HOST = 'localhost'
+#RABBITMQ_PORT = 5672
 
 # Video model to store video data
 class Video(db.Model):
@@ -59,7 +59,7 @@ def get_video(video_id):
     file_path = f'videos/{video_id}.mp4'
     
     if os.path.isfile(file_path):
-        return jsonify({'file_path': file_path})
+         return send_from_directory('videos', f'{video_id}.mp4', mimetype='video/mp4')
     else:
         return jsonify({'error': 'Video not found.'}), 404
 
