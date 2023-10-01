@@ -39,14 +39,9 @@ def start_video():
 # Endpoint to continuously update video data (simulate streaming)
 @app.route('/update_video/<int:video_id>', methods=['POST'])
 def update_video(video_id):
-    video = Video.query.get(video_id)
-
-    if video:
         data = request.get_data()
         update_video_data(video_id, data)
         return jsonify({'message': 'Video data updated.'})
-    else:
-        return jsonify({'error': 'Video not found.'}), 404
 
 # Endpoint to get video data
 @app.route('/get_video/<int:video_id>', methods=['GET'])
