@@ -10,4 +10,4 @@ gunicorn
 SQLAlchemy==2.0.20
 Flask-SQLAlchemy==3.0.5
 requests==2.31.0
-flask_cors==1.6.1
+flask-cors==1.6.1
